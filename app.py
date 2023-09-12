@@ -10,6 +10,34 @@ def one_or_two():
             print("Invalid input. Please enter 1 or 2.")
     return selection
 
+def remove_within_folder():
+        
+        files = []
+        to_delete = []
+
+        while True:
+            my_folder = input("Enter path to folder:\n")
+            if os.path.isdir(my_folder):
+                break
+            else:
+                print("Invalid input. Enter a valid folder path.")
+            
+        for filename in os.listdir(my_folder):
+            files.append(Image.open(my_folder + "\\" + filename))
+
+        seen = []
+        for img in files:
+            for i in seen:
+                if img == i:
+                    to_delete.append(i.filename)
+            else:
+                seen.append(img)
+
+        for entry in to_delete:
+            os.remove(entry)
+            print("Removed" + entry)
+
+
 def remove_between_folders():
     print("Enter paths to two different folders of photos:")
     while True:
@@ -31,12 +59,10 @@ def remove_between_folders():
     print("Delete duplicates from\n1: " + folder1 + "\n2: " + folder2)
     selection = one_or_two()
 
-
     f1_files = []
     f2_files = []
 
     to_delete = []
-
 
     for filename in os.listdir(folder1):
         f1_files.append(filename)
@@ -62,7 +88,7 @@ def main():
     print("Remove \n1: Duplicates within a folder \n2: Duplicates between two folders")
     selection = one_or_two()
     if selection == "1":
-        pass
+        remove_within_folder()
     elif selection == "2":
         remove_between_folders()
     
