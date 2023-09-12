@@ -1,7 +1,16 @@
 import os
 from PIL import Image
 
-def main():
+def one_or_two():
+    while True:
+        selection = input()
+        if selection in ['1', '2']:
+            break
+        else:
+            print("Invalid input. Please enter 1 or 2.")
+    return selection
+
+def remove_between_folders():
     print("Enter paths to two different folders of photos:")
     while True:
         folder1 = input("Enter first folder:\n")
@@ -19,12 +28,8 @@ def main():
                 print("Choose a unique folder.")
         else:
             print("Invalid input. Enter a valid folder path.")
-    while True:
-        selection = input("Would you like to remove from the first or second folder, select 1 or 2:\n")
-        if selection in ['1', '2']:
-            break
-        else:
-            print("Invalid input. Please enter 1 or 2.")
+    print("Delete duplicates from\n1: " + folder1 + "\n2: " + folder2)
+    selection = one_or_two()
 
 
     f1_files = []
@@ -47,11 +52,20 @@ def main():
                 if selection == 1:
                     to_delete.append(folder1 + "\\" + fname1)
                 else:
-                    to_delete.append(folder1 + "\\" + fname1)
+                    to_delete.append(folder2 + "\\" + fname2)
 
     for entry in to_delete:
         os.remove(entry)
         print("Removed" + entry)
+
+def main():
+    print("Remove \n1: Duplicates within a folder \n2: Duplicates between two folders")
+    selection = one_or_two()
+    if selection == "1":
+        pass
+    elif selection == "2":
+        remove_between_folders()
+    
 
 if __name__ == "__main__":
     main()
